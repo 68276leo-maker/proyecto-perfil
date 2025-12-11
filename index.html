@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Christian Fernández</title>
+    <style>
+        /* --- VARIABLES DE COLOR (Estilo Oxford Gray Elegante) --- */
+        :root {
+            --bg-color: #1a1d21;
+            --oxford-gray: #373e48;
+            --oxford-light: #4b5461;
+            --text-white: #f0f0f0;
+            --text-gray: #a0a0a0;
+            --accent-color: #5dade2; /* Azul suave uniforme para todo */
+            --radius-main: 25px;
+        }
+
+        /* --- ESTILOS GENERALES --- */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; }
+
+        /* --- BARRA DE NAVEGACIÓN --- */
+        nav {
+            background-color: rgba(55, 62, 72, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--accent-color); }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a {
+            color: var(--text-white);
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        .nav-links a:hover { background-color: var(--oxford-light); }
+
+        /* --- SECCIONES GENERALES --- */
+        section {
+            padding: 100px 20px 60px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Subtítulos de sección (Categorías) */
+        h3.category-title {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-top: 60px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            background: linear-gradient(90deg, rgba(93, 173, 226, 0.1) 0%, transparent 100%);
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* --- INICIO / PRESENTACIÓN --- */
+        .hero {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-color);
+            margin-bottom: 20px;
+            background-color: var(--oxford-light);
+        }
+
+        .hero h1 { font-size: 3rem; margin: 10px 0; }
+        .hero h3 { color: var(--accent-color); font-weight: 300; font-size: 1.5rem; margin-top: 0;}
+        .pitch { max-width: 600px; margin-top: 20px; color: var(--text-gray); font-size: 1.1rem; }
+
+        /* --- SOBRE MÍ --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background-color: var(--oxford-gray);
+            padding: 40px;
+            border-radius: var(--radius-main);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-text h3 { color: var(--accent-color); margin-bottom: 10px; font-size: 1.2rem; }
+        .skills-list li {
+            background-color: var(--bg-color);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 15px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.9rem;
+            border: 1px solid var(--oxford-light);
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: var(--radius-main);
+            object-fit: cover;
+        }
+
+        /* --- PORTAFOLIO --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: var(--oxford-gray);
+            padding: 25px;
+            border-radius: var(--radius-main);
+            transition: transform 0.3s;
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .project-card h4 { margin-top: 0; font-size: 1.2rem; margin-bottom: 10px; }
+        .project-card p { 
+            font-size: 0.95rem; 
+            color: var(--text-gray); 
+            flex-grow: 1; 
+            margin-bottom: 20px;
+        }
+
+        /* Imagen dentro de card (para Gimnasio) */
+        .card-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 1px solid var(--oxford-light);
+        }
+
+        /* Botones */
+        .card-actions { display: flex; gap: 10px; margin-top: auto; }
+
+        .btn-project {
+            flex: 1;
+            padding: 10px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* Estilo Azul para TODOS los botones principales */
+        .btn-demo {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: 1px solid var(--accent-color);
+        }
+        .btn-demo:hover { background-color: #fff; border-color: #fff; }
+
+        .btn-code {
+            background-color: transparent;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+        .btn-code:hover { background-color: rgba(93, 173, 226, 0.1); }
+        
+        .full-width { width: 100%; }
+
+        /* --- CONTACTO --- */
+        .contact-form {
+            background-color: var(--oxford-gray);
+            padding: 40px;
+            border-radius: var(--radius-main);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 15px;
+            border: none;
+            background-color: var(--bg-color);
+            color: var(--text-white);
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .form-group input:focus, .form-group textarea:focus { outline: 2px solid var(--accent-color); }
+
+        button.btn-submit {
+            width: 100%;
+            padding: 12px;
+            border-radius: 15px;
+            border: none;
+            background-color: var(--accent-color);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button.btn-submit:hover { background-color: #3498db; }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .about-content { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .card-actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CF.</div>
+            <div class="nav-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#sobre-mi">Sobre Mí</a>
+                <a href="#portafolio">Portafolio</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <img src="img/foto-perfil.jpg" alt="Christian Fernández" class="avatar">
+        <h1>Christian Alejandro Fernández Rodríguez</h1>
+        <h3>Estudiante de Ingeniería en Computación</h3>
+        <p class="pitch">
+            Apasionado por el desarrollo de software y la inteligencia artificial. 
+            Me especializo en crear soluciones eficientes utilizando Java, Python y tecnologías web modernas.
+        </p>
+    </section>
+
+    <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Mini Biografía</h3>
+                <p>
+                    Estudiante en la Universidad de León (2023-2026) con experiencia en gestión de sistemas. 
+                    Me destaco por mi curiosidad técnica y capacidad para implementar soluciones innovadoras.
+                </p>
+                <h3>Áreas que domino</h3>
+                <ul class="skills-list">
+                    <li>Java & Python</li>
+                    <li>Desarrollo Web</li>
+                    <li>PostgreSQL</li>
+                    <li>LangChain & IA</li>
+                </ul>
+                <h3>Intereses</h3>
+                <p>Inteligencia Artificial, Machine Learning y Arquitectura de Software.</p>
+            </div>
+            <div class="about-img">
+                <img src="img/foto-adicional.jpg" alt="Trabajando">
+            </div>
+        </div>
+    </section>
+
+    <section id="portafolio">
+        <h2>Portafolio</h2>
+        <p style="text-align: center; color: var(--text-gray);">
+            Selección de mis mejores trabajos organizados por categoría.
+        </p>
+
+        <h3 class="category-title">Prototipos</h3>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <h4>Suite Multi-Agente IA</h4>
+                <p>App avanzada que integra 8 modelos de IA distintos utilizando LangChain y diversos chatbots.</p>
+                <div class="card-actions">
+                    <a href="https://github.com/68276leo-maker/modelos" target="_blank" class="btn-project btn-code full-width">Ver en GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>App de Evaluación con IA</h4>
+                <p>Herramienta en Python para generar evaluaciones dinámicas mediante la API de Google Gemini.</p>
+                <div class="card-actions">
+                    <a href="https://github.com/68276leo-maker/exm-3-ia.git" target="_blank" class="btn-project btn-code full-width">Ver en GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="category-title">Páginas del Curso</h3>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <h4>Nebula Games Web</h4>
+                <p>Plataforma web para tienda de videojuegos. Incluye catálogo interactivo y diseño responsive.</p>
+                <div class="card-actions">
+                    <a href="https://68276leo-maker.github.io/nebula-games-page/" target="_blank" class="btn-project btn-demo">Ver Sitio</a>
+                    <a href="https://github.com/68276leo-maker/nebula-games-page.git" target="_blank" class="btn-project btn-code">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>Velluto Nero Landing Page</h4>
+                <p>Página de aterrizaje con diseño elegante y exclusivo, optimizada para la presentación de marca.</p>
+                <div class="card-actions">
+                    <a href="https://68276leo-maker.github.io/landing-page/" target="_blank" class="btn-project btn-demo">Ver Sitio</a>
+                    <a href="https://github.com/68276leo-maker/landing-page.git" target="_blank" class="btn-project btn-code">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>Congreso UDL Landing Page</h4>
+                <p>Sitio informativo para evento académico universitario, facilitando acceso a cronogramas.</p>
+                <div class="card-actions">
+                    <a href="https://68276leo-maker.github.io/landing-page_congreso/" target="_blank" class="btn-project btn-demo">Ver Sitio</a>
+                    <a href="https://github.com/68276leo-maker/landing-page_congreso.git" target="_blank" class="btn-project btn-code">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="category-title">Trabajos Escolares</h3>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <h4>Pharma-G OO</h4>
+                <p>Análisis de sistemas orientado a objetos para gestión farmacéutica. (Metodología de Sistemas).</p>
+                <div class="card-actions">
+                    <a href="https://drive.google.com/file/d/1SAF7vTsAZBaHhPY8CPNuMP-m4OlCWqz5/view?usp=sharing" target="_blank" class="btn-project btn-demo full-width">Ver Documento</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h4>TechFix Solutions</h4>
+                <p>Proyecto empresarial: análisis de mercado, finanzas y marketing. (Funciones del Área de Informática).</p>
+                <div class="card-actions">
+                    <a href="https://drive.google.com/file/d/1vo9cCBRu6h7EzH3BGr-WxtofBsT2gJ56/view?usp=sharing" target="_blank" class="btn-project btn-demo full-width">Ver Documento</a>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="category-title">Hobbies & Intereses</h3>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <h4>Videojuegos (Gaming)</h4>
+                <p>Disfruto de los videojuegos competitivos. Aquí una muestra de gameplay en Fortnite.</p>
+                <div class="card-actions">
+                    <a href="https://drive.google.com/file/d/1ONjbU8cuw6iEnqjHzB_u35KXPR_XiY5p/view?usp=sharing" target="_blank" class="btn-project btn-demo full-width">Ver Gameplay</a>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <h4>Gimnasio & Fitness</h4>
+                <img src="img/gimnasio.jpg" alt="Entrenamiento Gym" class="card-image">
+                <p>Me apasiona mantener un estilo de vida saludable y la disciplina del entrenamiento físico.</p>
+                </div>
+
+        </div>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <div class="contact-form">
+            <form id="miFormulario">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Tu nombre...">
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" placeholder="tucorreo@ejemplo.com">
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Christian Alejandro Fernández Rodríguez.</p>
+    </footer>
+
+    <script>
+        document.getElementById('miFormulario').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            if(nombre) {
+                alert("Gracias " + nombre + ", tu mensaje ha sido enviado.");
+                this.reset();
+            } else {
+                alert("Por favor completa los campos.");
+            }
+        });
+    </script>
+</body>
+</html>
